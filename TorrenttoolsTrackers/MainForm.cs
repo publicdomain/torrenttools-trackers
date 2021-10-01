@@ -50,7 +50,10 @@ namespace TorrenttoolsTrackers
 
         void DeleteButtonClick(object sender, EventArgs e)
         {
-
+            if (this.trackersCheckedListBox.SelectedIndex > -1)
+            {
+                this.trackersCheckedListBox.Items.RemoveAt(this.trackersCheckedListBox.SelectedIndex);
+            }
         }
 
         void ClearButtonClick(object sender, EventArgs e)

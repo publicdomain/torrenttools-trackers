@@ -40,7 +40,12 @@ namespace TorrenttoolsTrackers
 
         void EditButtonClick(object sender, EventArgs e)
         {
+            if (this.trackersCheckedListBox.SelectedIndex > -1)
+            {
+                var editUri = Interaction.InputBox("Edit tracker URI", "Edit", this.trackersCheckedListBox.SelectedItem.ToString());
 
+                this.trackersCheckedListBox.Items[this.trackersCheckedListBox.SelectedIndex] = editUri;
+            }
         }
 
         void DeleteButtonClick(object sender, EventArgs e)

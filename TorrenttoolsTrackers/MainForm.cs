@@ -20,7 +20,31 @@ namespace TorrenttoolsTrackers
 
         void TargetPathBrowseButtonClick(object sender, EventArgs e)
         {
+            var targetPath = string.Empty;
 
+            if (this.fileRadioButton.Checked)
+            {
+                this.openFileDialog.FileName = string.Empty;
+
+                if (this.openFileDialog.ShowDialog() == DialogResult.OK && this.openFileDialog.FileNames.Length > 0)
+                {
+                    targetPath = this.openFileDialog.FileName;
+                }
+            }
+            else
+            {
+                this.folderBrowserDialog.SelectedPath = string.Empty;
+
+                if (this.folderBrowserDialog.ShowDialog() == DialogResult.OK && this.folderBrowserDialog.SelectedPath.Length > 0)
+                {
+                    targetPath = this.folderBrowserDialog.SelectedPath;
+                }
+            }
+
+            if (targetPath.Length > 0)
+            {
+                this.targetPathTextBox.Text = targetPath;
+            }
         }
 
         void TorrenttoolsBrowseButtonClick(object sender, EventArgs e)

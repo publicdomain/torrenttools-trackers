@@ -58,7 +58,10 @@ namespace TorrenttoolsTrackers
 
         void ClearButtonClick(object sender, EventArgs e)
         {
-
+            if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            {
+                this.trackersCheckedListBox.Items.Clear();
+            }
         }
 
         void CopyButtonClick(object sender, EventArgs e)
@@ -86,11 +89,6 @@ namespace TorrenttoolsTrackers
 
         }
 
-        void ExitToolStripMenuItemClick(object sender, EventArgs e)
-        {
-
-        }
-
         void OptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
 
@@ -112,6 +110,11 @@ namespace TorrenttoolsTrackers
         }
 
         void AboutToolStripMenuItemClick(object sender, EventArgs e)
+        {
+
+        }
+
+        void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
 
         }

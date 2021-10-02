@@ -107,6 +107,47 @@ namespace TorrenttoolsTrackers
 
         }
 
+        string GetTorrenttoolsCommand()
+        {
+            string command = string.Empty;
+
+            if (this.targetPathTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("Target path missing.", "No target", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                goto exitLabel;
+            }
+
+            if (this.torrenttoolsPathTextBox.Text.Length == 0)
+            {
+                MessageBox.Show("torrenttools path missing", "No executable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                goto exitLabel;
+            }
+
+            var trackers = string.Empty;
+
+            if (this.trackersCheckedListBox.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Please add some trackers to process.", "No trackers", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                goto exitLabel;
+            }
+            else
+            {
+                foreach (string tracker in this.trackersCheckedListBox.CheckedItems)
+                {
+                    trackers += $" \"{tracker}\"";
+                }
+            }
+
+            command = $"{this.torrenttoolsPathTextBox.Text} create {this.targetPathTextBox.Text} --announce{trackers}";
+
+        exitLabel:
+
+            return command;
+        }
+
         void NewToolStripMenuItemClick(object sender, EventArgs e)
         {
 

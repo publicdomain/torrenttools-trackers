@@ -61,6 +61,16 @@ namespace TorrenttoolsTrackers
             }
         }
 
+        void OutputTorrentBrowseButtonClick(object sender, EventArgs e)
+        {
+            this.outputTorrentSaveFileDialog.FileName = string.Empty;
+
+            if (this.outputTorrentSaveFileDialog.ShowDialog() == DialogResult.OK && this.outputTorrentSaveFileDialog.FileName.Length > 0)
+            {
+                this.outputTorrentTextBox.Text = this.outputTorrentSaveFileDialog.FileName;
+            }
+        }
+
         void AddButtonClick(object sender, EventArgs e)
         {
             var newTracker = Interaction.InputBox("Enter new tracker URI", "Add");
@@ -91,7 +101,7 @@ namespace TorrenttoolsTrackers
 
         void ClearButtonClick(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //#if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.trackersCheckedListBox.Items.Clear();
             }

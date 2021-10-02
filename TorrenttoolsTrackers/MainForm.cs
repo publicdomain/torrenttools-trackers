@@ -111,7 +111,14 @@ namespace TorrenttoolsTrackers
 
         void CopyButtonClick(object sender, EventArgs e)
         {
+            string command = this.GetTorrenttoolsCommand();
 
+            if (command.Length > 0)
+            {
+                Clipboard.SetText(command);
+
+                MessageBox.Show("Command copied to clipboard.", "Copy", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         void ExecuteButtonClick(object sender, EventArgs e)

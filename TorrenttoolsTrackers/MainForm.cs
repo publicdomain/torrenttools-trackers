@@ -77,7 +77,9 @@ namespace TorrenttoolsTrackers
 
             if (newTracker.Length > 0)
             {
-                this.trackersCheckedListBox.Items.Add(newTracker);
+                var retInt = this.trackersCheckedListBox.Items.Add(newTracker);
+
+                this.trackersCheckedListBox.SetItemChecked(retInt, true);
             }
         }
 
@@ -109,7 +111,7 @@ namespace TorrenttoolsTrackers
 
         void CopyButtonClick(object sender, EventArgs e)
         {
-            MessageBox.Show(this.GetTorrenttoolsCommand());
+
         }
 
         void ExecuteButtonClick(object sender, EventArgs e)
@@ -184,14 +186,7 @@ namespace TorrenttoolsTrackers
 
         void OptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            // Set tool strip menu item
-            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
 
-            // Toggle checked
-            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
-
-            // Set topmost by check box
-            this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
         }
 
         void WeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)

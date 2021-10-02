@@ -109,7 +109,7 @@ namespace TorrenttoolsTrackers
 
         void CopyButtonClick(object sender, EventArgs e)
         {
-
+            MessageBox.Show(this.GetTorrenttoolsCommand());
         }
 
         void ExecuteButtonClick(object sender, EventArgs e)
@@ -137,9 +137,9 @@ namespace TorrenttoolsTrackers
 
             var trackers = string.Empty;
 
-            if (this.trackersCheckedListBox.SelectedItems.Count == 0)
+            if (this.trackersCheckedListBox.CheckedItems.Count == 0)
             {
-                MessageBox.Show("Please add some trackers to process.", "No trackers", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please check trackers to process.", "No trackers", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                 goto exitLabel;
             }
@@ -147,11 +147,20 @@ namespace TorrenttoolsTrackers
             {
                 foreach (string tracker in this.trackersCheckedListBox.CheckedItems)
                 {
-                    trackers += $" \"{tracker}\"";
+                    trackers += !singleTierToolStripMenuItem.Checked ? $" \"{tracker}\"" : $" {tracker}";
                 }
             }
 
-            command = $"{this.torrenttoolsPathTextBox.Text} create {this.targetPathTextBox.Text} --announce{trackers}";
+            trackers = trackers.Substring(1);
+
+            if (singleTierToolStripMenuItem.Checked)
+            {
+                trackers = $"\"[{trackers}]\"";
+            }
+
+            string output = this.outputTorrentTextBox.Text.Length > 0 ? $" --output \"{this.outputTorrentTextBox.Text}\"" : string.Empty;
+
+            command = $"{this.torrenttoolsPathTextBox.Text} create {this.targetPathTextBox.Text} --announce {trackers}{output}";
 
         exitLabel:
 
@@ -175,7 +184,14 @@ namespace TorrenttoolsTrackers
 
         void OptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
+            // Set tool strip menu item
+            ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)e.ClickedItem;
 
+            // Toggle checked
+            toolStripMenuItem.Checked = !toolStripMenuItem.Checked;
+
+            // Set topmost by check box
+            this.TopMost = this.alwaysOnTopToolStripMenuItem.Checked;
         }
 
         void WeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)

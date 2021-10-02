@@ -268,7 +268,6 @@ namespace TorrenttoolsTrackers
             // openFileDialog
             // 
             this.openFileDialog.Filter = "All files (*.*)|*.*";
-            this.openFileDialog.Title = "Open target file";
             // 
             // selectedToolStripStatusLabel
             // 

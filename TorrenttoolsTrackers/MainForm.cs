@@ -24,6 +24,8 @@ namespace TorrenttoolsTrackers
 
             if (this.fileRadioButton.Checked)
             {
+                this.openFileDialog.Title = "Open target file";
+
                 this.openFileDialog.FileName = string.Empty;
 
                 if (this.openFileDialog.ShowDialog() == DialogResult.OK && this.openFileDialog.FileNames.Length > 0)
@@ -49,7 +51,14 @@ namespace TorrenttoolsTrackers
 
         void TorrenttoolsBrowseButtonClick(object sender, EventArgs e)
         {
+            this.openFileDialog.Title = "Open torrenttools executable";
 
+            this.openFileDialog.FileName = string.Empty;
+
+            if (this.openFileDialog.ShowDialog() == DialogResult.OK && this.openFileDialog.FileNames.Length > 0)
+            {
+                this.torrenttoolsPathTextBox.Text = this.openFileDialog.FileName;
+            }
         }
 
         void AddButtonClick(object sender, EventArgs e)

@@ -228,7 +228,8 @@ namespace TorrenttoolsTrackers
 
         void ExitToolStripMenuItemClick(object sender, EventArgs e)
         {
-
+            // Close program        
+            this.Close();
         }
     }
 }

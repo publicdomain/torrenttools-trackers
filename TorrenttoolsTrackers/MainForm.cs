@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using PublicDomainWeekly;
 
 namespace TorrenttoolsTrackers
 {
@@ -12,10 +14,25 @@ namespace TorrenttoolsTrackers
     /// </summary>
     public partial class MainForm : Form
     {
+        /// <summary>
+        /// Gets or sets the associated icon.
+        /// </summary>
+        /// <value>The associated icon.</value>
+        private Icon associatedIcon = null;
+
         public MainForm()
         {
             // The InitializeComponent() call is required for Windows Forms designer support.
             InitializeComponent();
+
+            /* Set icons */
+
+            // Set associated icon from exe file
+            this.associatedIcon = Icon.ExtractAssociatedIcon(typeof(MainForm).GetTypeInfo().Assembly.Location);
+
+            // Set public domain weekly tool strip menu item image
+            this.weeklyReleasesPublicDomainWeeklycomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
+
         }
 
         void TargetPathBrowseButtonClick(object sender, EventArgs e)
@@ -214,17 +231,18 @@ namespace TorrenttoolsTrackers
 
         void OriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)
         {
-
+            // Open original thread
+            Process.Start("https://www.donationcoder.com/forum/index.php?topic=51709.0");
         }
 
         void SourceCodeGithubcomToolStripMenuItemClick(object sender, EventArgs e)
         {
-
+            // Open GitHub repository
+            Process.Start("https://github.com/publicdomain/torrenttools-trackers");
         }
 
         void AboutToolStripMenuItemClick(object sender, EventArgs e)
         {
-
         }
 
         void ExitToolStripMenuItemClick(object sender, EventArgs e)

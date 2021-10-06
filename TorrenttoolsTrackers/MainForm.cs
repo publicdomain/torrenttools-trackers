@@ -1,6 +1,6 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
@@ -178,7 +178,10 @@ namespace TorrenttoolsTrackers
 
         void NewToolStripMenuItemClick(object sender, EventArgs e)
         {
-
+            this.targetPathTextBox.Clear();
+            this.torrenttoolsPathTextBox.Clear();
+            this.outputTorrentTextBox.Clear();
+            this.trackersCheckedListBox.Items.Clear();
         }
 
         void OpenToolStripMenuItemClick(object sender, EventArgs e)

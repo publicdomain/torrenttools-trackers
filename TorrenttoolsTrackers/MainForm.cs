@@ -208,7 +208,8 @@ namespace TorrenttoolsTrackers
 
         void WeeklyReleasesPublicDomainWeeklycomToolStripMenuItemClick(object sender, EventArgs e)
         {
-
+            // Open our public domain website
+            Process.Start("https://publicdomainweekly.com");
         }
 
         void OriginalThreadDonationCodercomToolStripMenuItemClick(object sender, EventArgs e)

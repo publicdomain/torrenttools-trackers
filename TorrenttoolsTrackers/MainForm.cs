@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
@@ -37,7 +39,6 @@ namespace TorrenttoolsTrackers
 
             // Set public domain weekly tool strip menu item image
             this.weeklyReleasesPublicDomainWeeklycomToolStripMenuItem.Image = this.associatedIcon.ToBitmap();
-
         }
 
         void TargetPathBrowseButtonClick(object sender, EventArgs e)
@@ -127,7 +128,7 @@ namespace TorrenttoolsTrackers
 
         void ClearButtonClick(object sender, EventArgs e)
         {
-            if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            //#if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.trackersCheckedListBox.Items.Clear();
             }
@@ -215,7 +216,12 @@ namespace TorrenttoolsTrackers
 
         void SaveToolStripMenuItemClick(object sender, EventArgs e)
         {
+            this.trackerListSaveFileDialog.FileName = string.Empty;
 
+            if (this.trackerListSaveFileDialog.ShowDialog() == DialogResult.OK && this.trackerListSaveFileDialog.FileName.Length > 0)
+            {
+                File.WriteAllLines(this.trackerListSaveFileDialog.FileName, this.trackersCheckedListBox.Items.Cast<string>().ToList());
+            }
         }
 
         void OptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)

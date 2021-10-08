@@ -211,7 +211,12 @@ namespace TorrenttoolsTrackers
 
         void OpenToolStripMenuItemClick(object sender, EventArgs e)
         {
+            this.trackerListOpenFileDialog.FileName = string.Empty;
 
+            if (this.trackerListOpenFileDialog.ShowDialog() == DialogResult.OK && this.trackerListOpenFileDialog.FileNames.Length > 0)
+            {
+                this.trackersCheckedListBox.Items.AddRange(File.ReadAllLines(this.trackerListOpenFileDialog.FileName));
+            }
         }
 
         void SaveToolStripMenuItemClick(object sender, EventArgs e)

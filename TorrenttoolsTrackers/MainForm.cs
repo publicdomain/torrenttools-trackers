@@ -105,6 +105,8 @@ namespace TorrenttoolsTrackers
                 var retInt = this.trackersCheckedListBox.Items.Add(newTracker);
 
                 this.trackersCheckedListBox.SetItemChecked(retInt, true);
+
+                this.UpdateStatus();
             }
         }
 
@@ -123,6 +125,8 @@ namespace TorrenttoolsTrackers
             if (this.trackersCheckedListBox.SelectedIndex > -1)
             {
                 this.trackersCheckedListBox.Items.RemoveAt(this.trackersCheckedListBox.SelectedIndex);
+
+                this.UpdateStatus();
             }
         }
 
@@ -131,6 +135,8 @@ namespace TorrenttoolsTrackers
             //#if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.trackersCheckedListBox.Items.Clear();
+
+                this.UpdateStatus();
             }
         }
 
@@ -216,6 +222,8 @@ namespace TorrenttoolsTrackers
             if (this.trackerListOpenFileDialog.ShowDialog() == DialogResult.OK && this.trackerListOpenFileDialog.FileNames.Length > 0)
             {
                 this.trackersCheckedListBox.Items.AddRange(File.ReadAllLines(this.trackerListOpenFileDialog.FileName));
+
+                this.UpdateStatus();
             }
         }
 
@@ -227,6 +235,17 @@ namespace TorrenttoolsTrackers
             {
                 File.WriteAllLines(this.trackerListSaveFileDialog.FileName, this.trackersCheckedListBox.Items.Cast<string>().ToList());
             }
+        }
+
+        void TrackersCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
+        {
+
+        }
+
+        void UpdateStatus()
+        {
+            this.trackerCountToolStripStatusLabel.Text = this.trackersCheckedListBox.Items.Count.ToString();
+            this.selectedCountToolStripStatusLabel.Text = this.trackersCheckedListBox.CheckedItems.Count.ToString();
         }
 
         void OptionsToolStripMenuItemDropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)

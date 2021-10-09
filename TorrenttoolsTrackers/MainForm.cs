@@ -239,7 +239,7 @@ namespace TorrenttoolsTrackers
 
         void TrackersCheckedListBoxItemCheck(object sender, ItemCheckEventArgs e)
         {
-
+            this.selectedCountToolStripStatusLabel.Text = $"{this.trackersCheckedListBox.CheckedItems.Count + ((e.NewValue == CheckState.Checked) ? 1 : -1)}";
         }
 
         void UpdateStatus()

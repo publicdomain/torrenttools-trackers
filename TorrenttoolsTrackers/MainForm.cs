@@ -142,7 +142,7 @@ namespace TorrenttoolsTrackers
 
         void CopyButtonClick(object sender, EventArgs e)
         {
-            string command = this.GetTorrenttoolsCommand();
+            string command = this.GetTorrenttoolsCommand(false);
 
             if (command.Length > 0)
             {
@@ -157,7 +157,7 @@ namespace TorrenttoolsTrackers
 
         }
 
-        string GetTorrenttoolsCommand()
+        string GetTorrenttoolsCommand(bool argumentOnly)
         {
             string command = string.Empty;
 
@@ -170,9 +170,7 @@ namespace TorrenttoolsTrackers
 
             if (this.torrenttoolsPathTextBox.Text.Length == 0)
             {
-                MessageBox.Show("torrenttools path missing", "No executable", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                goto exitLabel;
+                this.targetPathTextBox.Text = "torrenttools";
             }
 
             var trackers = string.Empty;
@@ -200,7 +198,14 @@ namespace TorrenttoolsTrackers
 
             string output = this.outputTorrentTextBox.Text.Length > 0 ? $" --output \"{this.outputTorrentTextBox.Text}\"" : string.Empty;
 
-            command = $"{this.torrenttoolsPathTextBox.Text} create {this.targetPathTextBox.Text} --announce {trackers}{output}";
+            if (!argumentOnly)
+            {
+                command = $"{this.torrenttoolsPathTextBox.Text} create {this.targetPathTextBox.Text} --announce {trackers}{output}";
+            }
+            else
+            {
+                command = $"create {this.targetPathTextBox.Text} --announce {trackers}{output}";
+            }
 
         exitLabel:
 

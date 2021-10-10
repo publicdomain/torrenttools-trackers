@@ -132,7 +132,7 @@ namespace TorrenttoolsTrackers
 
         void ClearButtonClick(object sender, EventArgs e)
         {
-            //#if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+            if (MessageBox.Show($"Would you like to clear {this.trackersCheckedListBox.Items.Count} tracker{(this.trackersCheckedListBox.Items.Count > 1 ? "s" : string.Empty)}?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
             {
                 this.trackersCheckedListBox.Items.Clear();
 
@@ -154,7 +154,22 @@ namespace TorrenttoolsTrackers
 
         void ExecuteButtonClick(object sender, EventArgs e)
         {
+            string arguments = this.GetTorrenttoolsCommand(true);
 
+            if (arguments.Length == 0)
+            {
+                return;
+            }
+
+            ProcessStartInfo processStartInfo = new ProcessStartInfo
+            {
+                FileName = this.torrenttoolsPathTextBox.Text,
+                Arguments = arguments,
+                CreateNoWindow = false,
+                UseShellExecute = true
+            };
+
+            Process.Start(processStartInfo);
         }
 
         string GetTorrenttoolsCommand(bool argumentOnly)
@@ -168,11 +183,7 @@ namespace TorrenttoolsTrackers
                 goto exitLabel;
             }
 
-            if (this.torrenttoolsPathTextBox.Text.Length == 0)
-            {
-                this.targetPathTextBox.Text = "torrenttools";
-            }
-
+            // Trackers
             var trackers = string.Empty;
 
             if (this.trackersCheckedListBox.CheckedItems.Count == 0)
@@ -194,6 +205,20 @@ namespace TorrenttoolsTrackers
             if (singleTierToolStripMenuItem.Checked)
             {
                 trackers = $"\"[{trackers}]\"";
+            }
+
+            // torrenttools path
+            if (this.torrenttoolsPathTextBox.Text.Length == 0)
+            {
+                if (MessageBox.Show("Would you like to use default torrentools path?", "Empty torrenttools path", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes)
+                {
+
+                    this.torrenttoolsPathTextBox.Text = "torrenttools"; // TODO improve code (side effects)
+                }
+                else
+                {
+                    goto exitLabel;
+                }
             }
 
             string output = this.outputTorrentTextBox.Text.Length > 0 ? $" --output \"{this.outputTorrentTextBox.Text}\"" : string.Empty;
@@ -318,7 +343,7 @@ namespace TorrenttoolsTrackers
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: nickodemos{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #280, Week #40 @ October 07, 2021",
+                $"Made for: nickodemos{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #283, Week #40 @ October 10, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {

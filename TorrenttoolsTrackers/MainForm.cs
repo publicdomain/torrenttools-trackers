@@ -343,7 +343,7 @@ namespace TorrenttoolsTrackers
             var aboutForm = new AboutForm(
                 $"About {programTitle}",
                 $"{programTitle} {version.Major}.{version.Minor}.{version.Build}",
-                $"Made for: nickodemos{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #283, Week #40 @ October 10, 2021",
+                $"Made for: nickodemos{Environment.NewLine}DonationCoder.com{Environment.NewLine}Day #284, Week #41 @ October 11, 2021",
                 licenseText,
                 this.Icon.ToBitmap())
             {
